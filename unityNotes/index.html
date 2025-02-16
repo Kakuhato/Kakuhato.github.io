@@ -1,39 +1,39 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=dark>
 
 
 
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mango.png">
+  <link rel="icon" href="/img/mango.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="Kakuhato">
   <meta name="keywords" content="">
   
     <meta name="description" content="碰撞 碰撞产生的条件是两个物体都有Collider，且至少有一个物体含有Rigidbody。Collider用于描述物体的边界，Rigidbody用于模拟物理效果。 Collision Detection（碰撞检测模式） 用于防止快速移动的对象穿过其他对象而不检测碰撞 性能消耗：Continuous Dynamic &gt; Continuous Speculative &gt; Continuo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity学习笔记">
-<meta property="og:url" content="http://example.com/2025/01/18/unityNotes/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://example.com/unityNotes/index.html">
+<meta property="og:site_name" content="MangoNotes">
 <meta property="og:description" content="碰撞 碰撞产生的条件是两个物体都有Collider，且至少有一个物体含有Rigidbody。Collider用于描述物体的边界，Rigidbody用于模拟物理效果。 Collision Detection（碰撞检测模式） 用于防止快速移动的对象穿过其他对象而不检测碰撞 性能消耗：Continuous Dynamic &gt; Continuous Speculative &gt; Continuo">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-18T09:22:21.696Z">
-<meta property="article:modified_time" content="2025-01-18T09:25:30.209Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:published_time" content="2025-02-15T10:09:53.478Z">
+<meta property="article:modified_time" content="2025-02-15T10:09:53.478Z">
+<meta property="article:author" content="Kakuhato">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Unity学习笔记 - Hexo</title>
+  <title>Unity学习笔记 - MangoNotes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -71,7 +71,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":4},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -97,7 +97,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 70vh;">
+<div class="header-inner" style="height: 90vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -197,7 +197,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/ump45.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -227,6 +227,10 @@
         
       </div>
 
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
       
     </div>
   </div>
@@ -319,14 +323,52 @@
 <h3 id="Collider（碰撞器）">Collider（碰撞器）</h3>
 <p>碰撞器类型</p>
 <ul>
-<li>Box Collider（盒状）：</li>
-<li>Capsule Collider（胶囊状）</li>
-<li>Sphere Collider（球状）：仅3D</li>
-<li>Mesh Collider（网状）：</li>
+<li>
+<p>Box Collider（盒状）：</p>
+</li>
+<li>
+<p>Capsule Collider（胶囊状）</p>
+</li>
+<li>
+<p>Sphere Collider（球状）：仅3D</p>
+</li>
+<li>
+<p>Mesh Collider（网状）：</p>
+<p><code>Convex</code>：勾选后Unity会自动将网格凹凸不平的部分填平。如空心圆筒的碰撞箱会变为实心圆柱。</p>
+</li>
 </ul>
-<p><code>Is Trigger</code>：若勾选，则该Collider失去物理效果，用于触发事件，进行没有物理效果的碰撞检测。如设计贯穿的攻击模式。</p>
-<p><code>Material</code>：设置摩擦系数和弹性系数</p>
-<p>刚体对象的子对象Collider会参与碰撞检测：复杂物体，父对象挂载Rigidbody但没有Collider，每个子对象挂载Collider但没有Rigidbody。通过子对象来描述父对象的边界。</p>
+<p><code>Is Trigger</code>：若勾选，则该Collider失去物理效果，用于触发事件，进行没有物理效果的碰撞检测。如设计贯穿的攻击模式</p>
+<p>刚体对象的子对象Collider会参与碰撞检测（父对象作为刚体整体，子对象描述边界）：复杂物体，父对象挂载Rigidbody但没有Collider，每个子对象挂载Collider但没有Rigidbody。通过子对象来描述父对象的边界。</p>
+<h3 id="Material（物理材质）">Material（物理材质）</h3>
+<ul>
+<li>Dynamic Friction：移动摩擦力，描述物体停下来的阻力，为1时迅速停止</li>
+<li>Static Friction：静止摩擦力，描述物体运动起来的阻力，为1时很难移动</li>
+<li>Bounciness：弹力，为1时反弹不产生任何能量损失</li>
+</ul>
+<h3 id="碰撞检测函数">碰撞检测函数</h3>
+<p>物理碰撞函数触发相关函数响应，在<code>FixedUpdate</code>之后，在<code>Update</code>之前。碰撞检测的响应频率与<code>FixUpdate</code>的频率有关。响应函数触发的条件是两个物体均含有碰撞箱（Collider）且至少一个物体含有刚体（Rigidbody）。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnCollisionEnter</span>(<span class="hljs-params">Collision collision</span>)</span>;<br><span class="hljs-comment">//碰撞触发时</span><br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnCollisionExit</span>(<span class="hljs-params">Collision collision</span>)</span>;<br><span class="hljs-comment">//碰撞结束时</span><br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnCollisionStay</span>(<span class="hljs-params">Collision collision</span>)</span>;<br><span class="hljs-comment">//碰撞持续发生时（持续接触）</span><br></code></pre></td></tr></table></figure>
+<p>可以通过访问<code>collision.gameObject</code>和<code>collision.transform</code>来获取对象的相关信息。</p>
+<p>若勾选了<code>Is Trigger</code>，则使用下面的响应函数</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnTriggerEnter</span>(<span class="hljs-params">Collider other</span>)</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnTriggerExit</span>(<span class="hljs-params">Collider other</span>)</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">OnTriggerStay</span>(<span class="hljs-params">Collider other</span>)</span>;<br></code></pre></td></tr></table></figure>
+<p>同样可以通过访问<code>other.gameObject</code>和<code>other.transform</code>来获取对象的相关信息。但需要注意的是，这里返回的<code>other</code>是<code>Collider</code>脚本。</p>
+<p>对于复杂物体，父对象挂载Rigidbody，子对象挂载Collider，此时包含响应函数的脚本应该挂载到父对象上才会生效。可以理解为，进行碰撞计算的是Rigidbody，进行边界描述的是Collider。</p>
+<h2 id="力的作用">力的作用</h2>
+<h3 id="刚体自带添加力和速度的方法">刚体自带添加力和速度的方法</h3>
+<p>进行操作前先获取对应的脚本，这里是2d的刚体对象。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">Rigidbody2D rigid = <span class="hljs-keyword">this</span>.GetComponent&lt;Rigidbody2D&gt;();<br><span class="hljs-built_in">float</span> f = <span class="hljs-number">10.0</span>;<br><span class="hljs-built_in">float</span> s = <span class="hljs-number">10.0</span>;<br></code></pre></td></tr></table></figure>
+<p>相对世界坐标添加瞬时力</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.AddForce(Vector3.right * f);<br>rigid.AddForce(<span class="hljs-keyword">this</span>.transform.right);<br><span class="hljs-comment">//在世界坐标下，相向自己的本地右侧施加力</span><br></code></pre></td></tr></table></figure>
+<p>相对本地坐标添加瞬时力</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.AddRelativeForce(Vector3.right * f);<br></code></pre></td></tr></table></figure>
+<p>相对世界坐标添加扭矩力，使得物体旋转</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.AddTorque(f);<br><span class="hljs-comment">//注意，2d物体只能绕Z轴旋转，因此只需要传入一个float参数</span><br><span class="hljs-comment">//而对于3d物体需要传入一个Vector3指定扭矩力方向（旋转轴）</span><br>rigid.AddTorque(Vector3.up * f);<br></code></pre></td></tr></table></figure>
+<p>相对本地坐标添加扭矩力（仅限3d）</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.AddRelativeTorque(Vector3.up * f);<br></code></pre></td></tr></table></figure>
+<p>直接改变速度</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.velocity = Vector3.right * s;<br></code></pre></td></tr></table></figure>
+<p>添加爆炸效果（仅限3d），这个爆炸力只会影响挂载该代码的物体</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#">rigid.AddExplosionForce(f, position, radius);<br><span class="hljs-comment">//以position为中心，产生半径为radius，力为f的爆炸</span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -346,11 +388,17 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/csharpNotes/" title="c#笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">c#笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/01/17/games101/" title="Games101学习笔记">
+                      <a href="/games101/" title="Games101学习笔记">
                         <span class="hidden-mobile">Games101学习笔记</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>

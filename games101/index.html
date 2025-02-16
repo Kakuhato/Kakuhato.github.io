@@ -1,42 +1,42 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=dark>
 
 
 
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/mango.png">
+  <link rel="icon" href="/img/mango.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="Kakuhato">
   <meta name="keywords" content="">
   
     <meta name="description" content="齐次坐标  2D点：(x,y,1)T 2D向量：(x,y,0)T  最后一位需要的取值是保证向量的平移不变性。点与向量之间的运算关系为：  向量向量向量向量+向量&#x3D;向量 点点向量点−点&#x3D;向量 向量点向量向量+点&#x3D;向量​ 点点两点连线的中点点+点&#x3D;两点连线的中点  (x1,y1,1)T+(x2,y2,1)T&#x3D;(x1+x2,y1+y2,2)T&#x3D;&gt;(x1+x22,y1+y22,1)旋转 绕x,y,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Games101学习笔记">
-<meta property="og:url" content="http://example.com/2025/01/17/games101/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://example.com/games101/index.html">
+<meta property="og:site_name" content="MangoNotes">
 <meta property="og:description" content="齐次坐标  2D点：(x,y,1)T 2D向量：(x,y,0)T  最后一位需要的取值是保证向量的平移不变性。点与向量之间的运算关系为：  向量向量向量向量+向量&#x3D;向量 点点向量点−点&#x3D;向量 向量点向量向量+点&#x3D;向量​ 点点两点连线的中点点+点&#x3D;两点连线的中点  (x1,y1,1)T+(x2,y2,1)T&#x3D;(x1+x2,y1+y2,2)T&#x3D;&gt;(x1+x22,y1+y22,1)旋转 绕x,y,">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/Rodrigues.jpg">
 <meta property="og:image" content="http://example.com/img/perspective.jpg">
 <meta property="article:published_time" content="2025-01-16T18:17:19.980Z">
 <meta property="article:modified_time" content="2025-01-18T09:25:11.314Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Kakuhato">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/Rodrigues.jpg">
   
   
   
-  <title>Games101学习笔记 - Hexo</title>
+  <title>Games101学习笔记 - MangoNotes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":4},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -100,7 +100,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 70vh;">
+<div class="header-inner" style="height: 90vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -200,7 +200,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/ump45.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -230,6 +230,10 @@
         
       </div>
 
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
       
     </div>
   </div>
@@ -315,7 +319,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/01/18/unityNotes/" title="Unity学习笔记">
+                      <a href="/unityNotes/" title="Unity学习笔记">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Unity学习笔记</span>
                         <span class="visible-mobile">上一篇</span>
