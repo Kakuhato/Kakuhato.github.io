@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/LoadScene.png">
 <meta property="article:published_time" content="2025-02-15T10:09:53.478Z">
-<meta property="article:modified_time" content="2025-06-07T05:13:44.144Z">
+<meta property="article:modified_time" content="2025-06-21T17:01:59.978Z">
 <meta property="article:author" content="Kakuhato">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/LoadScene.png">
@@ -124,42 +124,6 @@
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
               </a>
             </li>
           
@@ -806,6 +770,92 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">Bone bone = sa.skeleton.FindBone(boneName);<br></code></pre></td></tr></table></figure>
 <p>设置附件</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">sa.skeleton.SetAttachment(slotName, attachmentName);<br></code></pre></td></tr></table></figure>
+<h2 id="数据持久化">数据持久化</h2>
+<h3 id="PlayerPrefs">PlayerPrefs</h3>
+<p>键值对存储方式</p>
+<p>键：<code>string</code>，值：<code>int</code>、<code>float</code>、<code>string</code>，分别对应三种 API</p>
+<figure class="highlight v"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs v">PlayerPrefs<span class="hljs-variable">.SetInt</span>(<span class="hljs-string">&quot;Level&quot;</span>, <span class="hljs-number">1</span>);<br>PlayerPrefs<span class="hljs-variable">.SetFloat</span>(<span class="hljs-string">&quot;Exp&quot;</span>, <span class="hljs-number">114</span><span class="hljs-variable">.14f</span>);<br>PlayerPrefs<span class="hljs-variable">.SetString</span>(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;Player1&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>注意，调用上述方法仅将数据保存到内存中，还未实际写入本地存储，需要当游戏正常结束时，Unity会自动把游戏存到本地存储，如果游戏不是正常结束而是崩溃，则上述数据会直接丢失</p>
+<p>如果需要立即存储数据，则需要调用下面的方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">PlayerPrefs.Save();<br></code></pre></td></tr></table></figure>
+<p>不同类型用同一键名会发生值覆盖</p>
+<p>读取时，即使还没存到本地存储中，也能直接读取暂时存在内存中的数据</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// 第二个参数为，没有获取到对应键的值，返回的默认值</span><br><span class="hljs-built_in">int</span> level = PlayerPrefs.GetInt(<span class="hljs-string">&quot;Level&quot;</span>, <span class="hljs-number">0</span>);<br><span class="hljs-built_in">float</span> exp = PlayerPrefs.GetFloat(<span class="hljs-string">&quot;Exp&quot;</span>, <span class="hljs-number">0.0f</span>);<br><span class="hljs-built_in">string</span> name = PlayerPrefs.GetString(<span class="hljs-string">&quot;Name&quot;</span>, <span class="hljs-string">&quot;DefaultPlayer&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>如果<code>Level</code>键的<code>int</code>类型的值被<code>float</code>类型的值覆盖，此时再使用<code>PlayerPrefs.GetInt(&quot;Level&quot;, 0);</code>返回的值为默认值</p>
+<p>判断是否存在键值对，一般用来防止键值对覆盖（如果有就换个名字），不常用</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c#">PlayerPrefs.HasKey(<span class="hljs-string">&quot;Level&quot;</span>);<br></code></pre></td></tr></table></figure>
+<p>删除键值对</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#">PlayerPrefs.DeleteKey(<span class="hljs-string">&quot;Level&quot;</span>);	<span class="hljs-comment">// 删除指定键值对</span><br>PlayerPrefs.DeleteAll();	<span class="hljs-comment">// 删除全部</span><br></code></pre></td></tr></table></figure>
+<h3 id="XML">XML</h3>
+<p>只读不写时，存储在 Resources 或 StreamingAssets 文件夹下</p>
+<p>需要动态读写的，存储在 <code>Application.persistentDataPath</code>路径下</p>
+<h4 id="读取文件">读取文件</h4>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version = <span class="hljs-string">&quot;1.0&quot;</span> encoding = <span class="hljs-string">&quot;UTF-8&quot;</span> ?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">Root</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;0&quot;</span>&gt;</span>Player<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">level</span>&gt;</span>13<span class="hljs-tag">&lt;/<span class="hljs-name">level</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">equippment</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;1&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">equippment</span> <span class="hljs-attr">id</span> = <span class="hljs-string">&quot;2&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">Root</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>XmlDocument</code>：把数据加载到内存中，方便读取</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-comment">// 以字符串的形式加载xml</span><br>XmlDocument xmlDocument = <span class="hljs-keyword">new</span> XmlDocument();<br>TextAsset xmlFile = Resources.Load&lt;TextAsset&gt;(<span class="hljs-string">&quot;test&quot;</span>);<br>xmlDocument.LoadXml(xmlFile.text);<br><br><span class="hljs-comment">// 通过xml路径进行加载</span><br>xmlDocument.Load(Application.streamingAssetsPath + <span class="hljs-string">&quot;/test.xml&quot;</span>);<br><span class="hljs-comment">// StreamingAssets文件夹不会被压缩，可直接通过路径读取</span><br></code></pre></td></tr></table></figure>
+<p>读取元素和属性信息</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c#">XmlNode root = xmlDocument.SelectSingleNode(<span class="hljs-string">&quot;Root&quot;</span>);<br>XmlNode node1 = root.SelectSingleNode(<span class="hljs-string">&quot;name&quot;</span>);<br>XmlNode node2 = xmlDocument.SelectSingleNode(<span class="hljs-string">&quot;/Root/age&quot;</span>);<br>XmlNode node3 = xmlDocument.SelectSingleNode(<span class="hljs-string">&quot;/Root/equippment[@id=&#x27;1&#x27;]&quot;</span>);<br><span class="hljs-comment">// &quot;/&quot;表示从文档根节点开始查找，这里Root已经时根节点，直接写Root/age效果一样</span><br><br><span class="hljs-comment">// 获取包裹的元素</span><br><span class="hljs-built_in">string</span> s = node1?.InnerText;<br><br><span class="hljs-comment">// 获取属性</span><br><span class="hljs-built_in">string</span> id = node1?.Attributes[<span class="hljs-string">&quot;id&quot;</span>]?.Value;<br><span class="hljs-built_in">string</span> id2 = node1?.Attributes.GetNamedItem(<span class="hljs-string">&quot;id&quot;</span>)?.Value;<br></code></pre></td></tr></table></figure>
+<p>获取一个节点下的同名节点</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c#">XmlNodeList nodeList = root.SelectNodes(<span class="hljs-string">&quot;equippment&quot;</span>);<br><br><span class="hljs-built_in">int</span> num = nodeList.Count; <span class="hljs-comment">// 获取长度</span><br><span class="hljs-keyword">foreach</span>(XmlNode item <span class="hljs-keyword">in</span> nodeList)<br>&#123;<br>    print(item?.Attributes[<span class="hljs-string">&quot;id&quot;</span>]?.Value);<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>XmlTextReader</code>：以流形式加载，内存占用更少，但只读，不常用</li>
+<li><code>Linq</code></li>
+</ul>
+<h4 id="存储和修改文件">存储和修改文件</h4>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/example.xml&quot;</span>;<br>XmlDocument xmlDoc = <span class="hljs-keyword">new</span> XmlDocument();<br><br><span class="hljs-comment">// 添加头文件</span><br>XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(<span class="hljs-string">&quot;1.0&quot;</span>, <span class="hljs-string">&quot;UTF-8&quot;</span>, <span class="hljs-literal">null</span>);<br>xmlDoc.AppendChild(xmlDeclaration);<br><br><span class="hljs-comment">// 添加根节点</span><br>XmlElement root = xmlDoc.CreateElement(<span class="hljs-string">&quot;Root&quot;</span>);<br>xmlDoc.AppendChild(root);<br><br><span class="hljs-comment">// 根节点下添加子节点</span><br>XmlElement child1 = xmlDoc.CreateElement(<span class="hljs-string">&quot;Child1&quot;</span>);<br>child1.InnerText = <span class="hljs-string">&quot;This is the first child element.&quot;</span>;<br>child1.SetAttribute(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>);<br>root.AppendChild(child1);<br><br><span class="hljs-comment">//保存</span><br>xmlDoc.Save(path);<br></code></pre></td></tr></table></figure>
+<p>删除</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#">XmlNode root = xmlDoc.SelectSingleNode(<span class="hljs-string">&quot;Root&quot;</span>);<br>XmlNode childNode = root.SelectSingleNode(<span class="hljs-string">&quot;ChildNode&quot;</span>);<br>root.RemoveChild(childNode);<br><br>xmlDoc.Save(path); <span class="hljs-comment">// 修改后需要保存</span><br></code></pre></td></tr></table></figure>
+<h4 id="序列化">序列化</h4>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">TestClass</span><br>&#123;<br>    [<span class="hljs-meta">XmlElement(<span class="hljs-string">&quot;A&quot;</span>)</span>] <span class="hljs-comment">// 通过特性修改保存到xml中后的节点名</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> a;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> b;<br>    <br>    [<span class="hljs-meta">XmlArrayItem(<span class="hljs-string">&quot;Item&quot;</span>)</span>] <span class="hljs-comment">// 修改数组成员的xml节点名</span><br>    <span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">int</span>&gt; c;<br>    <br>    <span class="hljs-comment">// 以属性形式保存，以及将私有字段序列化的方法</span><br>    [<span class="hljs-meta">XmlAttribute(<span class="hljs-string">&quot;Attribute1&quot;</span>)</span>] <br>    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> d;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">TestClass</span>()</span><br>    &#123;<br>        a = <span class="hljs-number">0</span>;<br>        b = <span class="hljs-string">&quot;default&quot;</span>;<br>        c = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;();<br>        d = <span class="hljs-number">2</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>类必须有无参构造函数。</li>
+<li>只序列化公共属性和公共字段（除非加上特性使其变成xml节点或属性）。</li>
+<li>支持数组，但不支持字典</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/example.xml&quot;</span>;TestClass testClass = <span class="hljs-keyword">new</span> TestClass();<br><span class="hljs-comment">// StreamWriter 写入一个文件流，如果有则直接打开，如果没有就新建这个文件</span><br><span class="hljs-comment">// using功能，当代码块结束时会自动调用括号中的对象streamWriter的Dispose()方法，释放资源</span><br><span class="hljs-keyword">using</span> (StreamWriter streamWriter = <span class="hljs-keyword">new</span> StreamWriter(path))&#123;    <br>    XmlSerializer serializer = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(TestClass));    <br>    <span class="hljs-comment">// 文件流对象    需要序列化的具体对象，需要和上面创建时指定的类一致    </span><br>    serializer.Serialize(streamWriter, testClass);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="反序列化">反序列化</h4>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/example.xml&quot;</span>;<br><span class="hljs-keyword">if</span> (File.Exists(path))<br>&#123;<br>    <span class="hljs-keyword">using</span> (StreamReader reader = <span class="hljs-keyword">new</span> StreamReader(path))<br>    &#123;<br>        XmlSerializer xmlSerializer = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(TestClass));<br>        TestClass tc = xmlSerializer.Deserialize(reader) <span class="hljs-keyword">as</span> TestClass;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>需要注意，<code>List&lt;T&gt;</code>对象在反序列化时，不会覆盖对象原有的<code>List&lt;T&gt;</code>内部的值，而是追加到末尾，因此对于类中<code>List&lt;T&gt;</code>的相关字段，最好初始化为空列表。当执行<code>.Deserialize()</code>时，<code>XmlSerializer</code>会先调用类的无参构造函数</p>
+<h4 id="IXmlSerializable接口"><code>IXmlSerializable</code>接口</h4>
+<p>用于自定义序列化和反序列化方法</p>
+<p>序列化规则，<code>writer</code>默认指向根节点</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteXml</span>(<span class="hljs-params">XmlWriter writer</span>)</span><br>&#123;<br>    writer.WriteAttributeString(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-keyword">this</span>.a.ToString());<br>    writer.WriteElementString(<span class="hljs-string">&quot;B&quot;</span>,<span class="hljs-keyword">this</span>.b);<br><br>    XmlSerializer s = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">string</span>));<br>    writer.WriteStartElement(<span class="hljs-string">&quot;test&quot;</span>);<br>    s.Serialize(writer, <span class="hljs-keyword">this</span>.d.ToString());<br>    <span class="hljs-comment">// 这里也可以通过WriteElementString写入</span><br>    <span class="hljs-comment">// writer.WriteElementString(&quot;anyName&quot;,this.d.ToString());</span><br>    writer.WriteEndElement();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>序列化后的结果为</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">TestClass</span> <span class="hljs-attr">A</span> = <span class="hljs-string">&quot;0&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">B</span>&gt;</span>default<span class="hljs-tag">&lt;/<span class="hljs-name">B</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">test</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">string</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">test</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">TestClass</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>反序列化规则，读取操作较为特殊</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReadXml</span>(<span class="hljs-params">XmlReader reader</span>)</span><br>&#123;<br>    <span class="hljs-keyword">this</span>.a = <span class="hljs-built_in">int</span>.Parse(reader[<span class="hljs-string">&quot;A&quot;</span>]); <span class="hljs-comment">// 此时reader指向&lt;TestClass A = &quot;0&quot;&gt;</span><br>    reader.Read(); <span class="hljs-comment">// reader指向&lt;B&gt;</span><br>    reader.Read(); <span class="hljs-comment">// reader指向InnerText &quot;default&quot;</span><br>    <span class="hljs-keyword">this</span>.b = reader.Value;<br>    reader.Read(); <span class="hljs-comment">// reader指向&lt;/B&gt; // 后面没内容，这一步仅为展示操作效果</span><br>    reader.Read();<br><br>    XmlSerializer s = <span class="hljs-keyword">new</span> XmlSerializer(<span class="hljs-keyword">typeof</span>(<span class="hljs-built_in">string</span>));<br>    <span class="hljs-comment">// XmlSerializer(typeof(string))反序列化字符串时，节点名默认可以是任意的，只要该节点包含纯文本内容</span><br>    reader.ReadStartElement(<span class="hljs-string">&quot;test&quot;</span>); <span class="hljs-comment">// 执行后指向&lt;test&gt;的第一个子节点</span><br>    <span class="hljs-built_in">string</span> d = s.Deserialize(reader) <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;<br>    <span class="hljs-comment">// 需要和序列化的方法对称</span><br>    reader.ReadEndElement(); <span class="hljs-comment">// 这里运行完成后指向&lt;/test&gt;的下一个节点</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="Json">Json</h3>
+<p>注意json文件中，键值对末尾不要加逗号<code>,</code></p>
+<h4 id="JsonUtility"><code>JsonUtility</code></h4>
+<p>在文件中读写字符串</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/test.json&quot;</span>;<br><span class="hljs-comment">// 使用时必须保证路径文件夹存在</span><br>File.WriteAllText(path, <span class="hljs-string">&quot;this is a test&quot;</span>);<br><br><span class="hljs-comment">// 读取文件内容</span><br><span class="hljs-built_in">string</span> s = File.ReadAllText(path);<br></code></pre></td></tr></table></figure>
+<h5 id="序列化-2">序列化</h5>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/test.json&quot;</span>;<br>TestClass t = <span class="hljs-keyword">new</span> TestClass();<br><br><span class="hljs-built_in">string</span> str = JsonUtility.ToJson(t);<br>File.WriteAllText(path, str);<br></code></pre></td></tr></table></figure>
+<p>序列化时需要注意下面几点</p>
+<ol>
+<li><code>float</code>序列化时在文件中查看会有精度问题，但读入后和写入之前一致</li>
+<li>类的字段如果包含自定义类，需要给自定义类添加特性<code>[System.Serializable]</code></li>
+<li>序列化私有遍历，需要添加特性<code>[SerializeField]</code></li>
+<li>同样不支持字典</li>
+<li>存储<code>null</code>对象时，不会为空，而是存储对应类型的默认值</li>
+</ol>
+<h5 id="反序列化-2">反序列化</h5>
+<p>反序列化时，需要注意<code>.FromJson()</code>不能读取数据集合，即必须有一个“根对象”（最外层用<code>&#123;&#125;</code>包裹）</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> path = Application.persistentDataPath + <span class="hljs-string">&quot;/test.json&quot;</span>;<br><br><span class="hljs-built_in">string</span> jsonstr = File.ReadAllText(path);<br>TestClass t2 = JsonUtility.FromJson&lt;TestClass&gt;(jsonstr);<br></code></pre></td></tr></table></figure>
+<h4 id="LitJson"><code>LitJson</code></h4>
+<h5 id="序列化-3">序列化</h5>
+<p>不需要添加特性，支持字典类型但被保存的字典的键值都会变成<code>string</code>类型，反序列化时需要注意类型转换，<strong>无法</strong>序列化<strong>私有字段</strong>，可准确保存<code>null</code>类型</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#">TestClass t = <span class="hljs-keyword">new</span> TestClass();<br><span class="hljs-built_in">string</span> str = JsonMapper.ToJson(t);<br>File.WriteAllText(path, str);<br></code></pre></td></tr></table></figure>
+<h5 id="反序列化-3">反序列化</h5>
+<p>反序列化字典时，读取的键值对为<code>string:x</code>，若原字典中键的类型不是<code>string</code>，则会报错</p>
+<p>注意，反序列化时需要类有无参构造函数（存在有参构造函数时，需要显式声明无参构造函数），否则会报错</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> jsonstr = File.ReadAllText(path);<br>TestClass data = JsonMapper.ToObject&lt;TestClass&gt;(jsonstr);<br></code></pre></td></tr></table></figure>
+<p>可以直接反序列化数据集合</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c#"><span class="hljs-built_in">string</span> jsonstr = File.ReadAllText(path);<br>List&lt;TestClass&gt; datas = JsonMapper.ToObject&lt;List&lt;TestClass&gt;&gt;(jsonstr);<br><span class="hljs-comment">// JsonUtility是不能使用List&lt;TestClass&gt;进行反序列化的</span><br></code></pre></td></tr></table></figure>
+<p>若json文件中的键值格式全部相同，也可以直接当作字典读取</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">Dictionary&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">int</span>&gt; datas = JsonMapper.ToObject&lt;Dictionary&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">int</span>&gt;&gt;(jsonstr);<br></code></pre></td></tr></table></figure>
 
                 
               </div>
